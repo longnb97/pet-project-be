@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.2.0/socket.io.dev.js"></script>
+</head>
+
+<body>
+    <form action="/profile" method="post" enctype="multipart/form-data">
+        <input type="text" name="user" placeholder="user name" />
+        <input type="file" name="avatar" />
+        <input type="submit" value="gửi" />
+        <!-- <img src="/profile?img=avatar-aaa-1564037617712.png" /> -->
+    </form><br>
+    <div>
+        <input type="text" id="chatContent">
+        <button onclick="sendMessage()">test socket</button>
+    </div>
+    <script>
+        var socket = io.connect('http://localhost:2000/nsp1');
+        // socket.on('event', data => {
+        //     console.log(data.message);
+        //     socket.emit('event-res', data.id + ': say hi');
+        // })
+        socket.on('test-res', data => {
+            console.log(data);
+        })
+        function sendMessage() {
+            let messages = document.getElementById('chatContent').value;
+            socket.emit('test', messages);
+        }
+    </script>
+</body>
+
+</html>
